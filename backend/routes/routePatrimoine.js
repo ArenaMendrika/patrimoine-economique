@@ -1,6 +1,6 @@
 import  express from "express";
 const router = express.Router();
-import { getValeurPatrimoineRange ,getValeurPatrimoine } from "../depart/patrimoineEndpoints.js";
+import { getValeurPatrimoineRange ,getValeurPatrimoine } from "../depart/departPatrimoine.js";
 
 router.post("/range", getValeurPatrimoineRange );
 
