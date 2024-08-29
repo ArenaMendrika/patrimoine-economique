@@ -4,7 +4,6 @@ import { fileURLToPath } from 'url';
 import Patrimoine from '../../models/Patrimoine.js';
 import Possession from '../../models/possessions/Possession.js';
 
-// chemin absolu
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataFilePath = path.join(__dirname, '../../data/data.json');
@@ -48,7 +47,6 @@ export const getValeurPatrimoineRange = async (req, res) => {
         valuePatrimoines.push(valeurActuelle);
         currentDate.setDate(currentDate.getDate() + jour);
       
-        // Vérification pour éviter une boucle infinie
         if (currentDate > parsedDateFin) break;
       }
       

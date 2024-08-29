@@ -10,7 +10,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataFilePath = path.join(__dirname, '../../data/data.json');
 
-// Récupérer la liste des possessions (libelle, valeur, date de début, date de fin, amortissement, date actuelle)
 export const getPossessions = async (req, res) => {
     const result = await readFile(dataFilePath);
     if (result.status === "OK") {
@@ -62,7 +61,6 @@ export const getPossessions = async (req, res) => {
     }
 };
 
-// Créer une nouvelle possession
 export const createPossession = async (req, res) => {
     const result = await readFile(dataFilePath);
     if (result.status === "OK") {
@@ -147,10 +145,9 @@ export const createPossession = async (req, res) => {
     }
 };
 
-// Mettre à jour une possession par son libelle
 export const updatePossession = async (req, res) => {
     const { libelle } = req.params;
-    const { dateFin, newLibelle } = req.body; //il faut ajouter un newLibelle et y mettre la nouvelle valeur de libelle
+    const { dateFin, newLibelle } = req.body; 
     const result = await readFile(dataFilePath);
 
     if (result.status === "OK") {
