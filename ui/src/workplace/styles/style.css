@@ -1,0 +1,15 @@
+.table-bordered {
+    border: 2px solid #d8a62f;
+    border-radius: 0.375rem; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .table-bordered th,
+  .table-bordered td,
+  .table-bordered tr {
+    border: 1px solid #d8a62f; 
+  }
+
+
+  
+  

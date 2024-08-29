@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PossessionList from "../littleComponents/PossessionList";
+import PossessionList from "../ListeDesPossessions";
 
 function PossessionListPage() {
   const [possessions, setPossessions] = useState([]);
