@@ -3,28 +3,66 @@ import React from "react";
 function PossessionForm({ libelle, valeur, dateDebut, tauxAmortissement, onLibelleChange, onValeurChange, onDateDebutChange, onTauxChange, onSubmit }) {
   return (
     <div className="container">
-      <h2>Créer une Possession</h2>
-      <form onSubmit={onSubmit}>
-        <div className="m-3">
-          <label>Libellé</label>
-          <input type="text" value={libelle} onChange={onLibelleChange} className="form-control" />
-        </div>
-        <div className="m-3">
-          <label>Valeur</label>
-          <input type="number" value={valeur} onChange={onValeurChange} className="form-control" />
-        </div>
-        <div className="m-3">
-          <label>Date Début</label>
-          <input type="date" value={dateDebut} onChange={onDateDebutChange} className="form-control" />
-        </div>
-        <div className="m-3">
-          <label>Taux</label>
-          <input type="number" value={tauxAmortissement} onChange={onTauxChange} className="form-control" />
-        </div>
-        <button type="submit" className="btn btn-secondary">
-          Créer
-        </button>
-      </form>
+     <div className="d-flex justify-content-center">
+  <form onSubmit={onSubmit} className="p-4 shadow rounded" style={{ maxWidth: '500px', width: '100%', marginTop: '2%' }}>
+    <h3 className="text-center mb-4">Allez-y</h3>
+    
+    <div className="form-group mb-3">
+      <label htmlFor="libelle" className="form-label">Libellé</label>
+      <input 
+        type="text" 
+        id="libelle" 
+        value={libelle} 
+        onChange={onLibelleChange} 
+        className="form-control form-control-lg"
+        placeholder="Entrez le libellé"
+      />
+    </div>
+
+    <div className="form-group mb-3">
+      <label htmlFor="valeur" className="form-label">Valeur</label>
+      <input 
+        type="number" 
+        id="valeur" 
+        value={valeur} 
+        onChange={onValeurChange} 
+        className="form-control form-control-lg"
+        placeholder="Entrez la valeur"
+      />
+    </div>
+
+    <div className="form-group mb-3">
+      <label htmlFor="dateDebut" className="form-label">Date Début</label>
+      <input 
+        type="date" 
+        id="dateDebut" 
+        value={dateDebut} 
+        onChange={onDateDebutChange} 
+        className="form-control form-control-lg"
+      />
+    </div>
+
+    <div className="form-group mb-4">
+      <label htmlFor="tauxAmortissement" className="form-label">Taux</label>
+      <input 
+        type="number" 
+        id="tauxAmortissement" 
+        value={tauxAmortissement} 
+        onChange={onTauxChange} 
+        className="form-control form-control-lg"
+        placeholder="Entrez le taux d'amortissement"
+      />
+    </div>
+
+    <div className="text-center">
+      <button type="submit" className="btn btn-primary btn-lg">
+        Créer
+      </button>
+    </div>
+  </form>
+</div>
+
+
     </div>
   );
 }
