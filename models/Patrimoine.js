@@ -11,13 +11,13 @@ export default class Patrimoine {
     return result;
   }
   addPossession(possession) {
-    if (possession.possesseur != this.possesseur) {
-      console.log(
-        `${possession.libelle} n'appartient pas à ${this.possesseur}`,
-      );
-    } else {
+    // if (possession.possesseur != this.possesseur) {
+    //   console.log(
+    //     `${possession.libelle} n'appartient pas à ${this.possesseur}`,
+    //   );
+    // } else {
       this.possessions.push(possession);
-    }
+    
   }
   removePossession(possession) {
     this.possessions = this.possessions.filter(

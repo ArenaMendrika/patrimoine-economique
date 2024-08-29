@@ -7,7 +7,7 @@ export default class Possession {
     this.dateFin = dateFin;
     this.tauxAmortissement = tauxAmortissement;
   }
-
+ 
   getValeur(date) {
     return this.getValeurApresAmortissement(date);
   }
