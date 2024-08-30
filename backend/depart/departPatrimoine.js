@@ -1,4 +1,4 @@
-import { readFile, writeFile } from '../../data/index.js';
+import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import Patrimoine from '../../models/Patrimoine.js';
@@ -6,7 +6,16 @@ import Possession from '../../models/possessions/Possession.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dataFilePath = path.join(__dirname, '../../data/data.json');
+const dataFilePath = path.resolve(__dirname, '../../data/data.json');
+
+const loadData = async () => {
+  try {
+    const data = await fs.readFile(dataFilePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    throw new Error('Erreur de lecture du fichier de données');
+  }
+};
 
 export const getValeurPatrimoineRange = async (req, res) => {
   const { type, dateDebut, dateFin, jour } = req.body;
@@ -14,16 +23,16 @@ export const getValeurPatrimoineRange = async (req, res) => {
   const parsedDateDebut = new Date(dateDebut);
   const parsedDateFin = new Date(dateFin);
 
-  if (isNaN(parsedDateDebut.getTime()) || isNaN(parsedDateFin.getTime())) {
+  if (isNaN(parsedDateDebut) || isNaN(parsedDateFin)) {
     return res.status(400).json({ message: 'Dates invalides' });
   }
 
-  const result = await readFile(dataFilePath);
+  try {
+    const data = await loadData();
+    const patrimoineData = data.find(entry => entry.model === 'Patrimoine');
 
-  if (result.status === 'OK') {
-    const patrimoineData = result.data.find(entry => entry.model === 'Patrimoine');
     if (patrimoineData) {
-      const possessions = patrimoineData.data.possessions.map(p =>
+      const possessions = patrimoineData.data.possessions.map(p => 
         new Possession(
           p.possesseur,
           p.libelle,
@@ -34,42 +43,39 @@ export const getValeurPatrimoineRange = async (req, res) => {
         )
       );
 
-      const patrimoine = new Patrimoine(
-        patrimoineData.data.possesseur,
-        possessions
-      );
+      const patrimoine = new Patrimoine(patrimoineData.data.possesseur, possessions);
 
-      let valuePatrimoines = [];
+      const valuePatrimoines = [];
       let currentDate = new Date(parsedDateDebut);
 
       while (currentDate <= parsedDateFin) {
-        const valeurActuelle = patrimoine.getValeur(currentDate);
-        valuePatrimoines.push(valeurActuelle);
+        valuePatrimoines.push(patrimoine.getValeur(currentDate));
         currentDate.setDate(currentDate.getDate() + jour);
-      
-        if (currentDate > parsedDateFin) break;
       }
-      
 
       res.json({ valeur: valuePatrimoines });
     } else {
       res.status(404).json({ message: 'Patrimoine non trouvé' });
     }
-  } else {
-    res.status(500).json(result.error);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
-
 
 export const getValeurPatrimoine = async (req, res) => {
   const { date } = req.params;
   const parsedDate = new Date(date);
 
-  const result = await readFile(dataFilePath);
-  if (result.status === 'OK') {
-    const patrimoineData = result.data.find(entry => entry.model === 'Patrimoine');
+  if (isNaN(parsedDate)) {
+    return res.status(400).json({ message: 'Date invalide' });
+  }
+
+  try {
+    const data = await loadData();
+    const patrimoineData = data.find(entry => entry.model === 'Patrimoine');
+
     if (patrimoineData) {
-      const possessions = patrimoineData.data.possessions.map(p =>
+      const possessions = patrimoineData.data.possessions.map(p => 
         new Possession(
           p.possesseur,
           p.libelle,
@@ -80,17 +86,14 @@ export const getValeurPatrimoine = async (req, res) => {
         )
       );
 
-      const patrimoine = new Patrimoine(
-        patrimoineData.data.possesseur,
-        possessions
-      );
+      const patrimoine = new Patrimoine(patrimoineData.data.possesseur, possessions);
 
-      let totalValeur = patrimoine.getValeur(parsedDate);
+      const totalValeur = patrimoine.getValeur(parsedDate);
       res.json({ valeur: totalValeur });
     } else {
       res.status(404).json({ message: 'Patrimoine non trouvé' });
     }
-  } else {
-    res.status(500).json(result.error);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
