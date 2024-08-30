@@ -1,50 +1,37 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Line } from "react-chartjs-2";
+import  { useMemo } from "react";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/style.css'
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-function ChartComponent({ data, x }) {
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-  const jours = [];
-  for (let i = 0; i < data.length; i++) {
-    jours.push(i * x);
-  }
+function Chart({ data, x }) {
+  const chartData = useMemo(() => {
+    const labels = data.map((_, index) => index * x);
 
-  data = {
-    labels: jours,
-    datasets: [
-      {
-        label: "Valeur des patrimoines",
-        data: data,
-        backgroundColor: [
-          "rgba(255, 255, 255, 0.6)",
-          "rgba(255, 255, 255, 0.6)",
-          "rgba(255, 255, 255, 0.6)",
-        ],
-        borderColor: "black",
-        borderWidth: 1,
-        pointBackgroundColor: "black",
-      },
-    ],
-  };
+    return {
+      labels,
+      datasets: [
+        {
+          label: "Valeur des patrimoines",
+          data: data,
+          backgroundColor: "#e6b94b",
+          borderColor: "#e6b94b",
+          borderWidth: 2,
+          pointBackgroundColor: "#d8a62f",
+          pointBorderColor: "white",
+          pointHoverBackgroundColor: "white",
+          pointHoverBorderColor: "#d8a62f",
+          pointRadius: 5,
+          pointHoverRadius: 7,
+        },
+      ],
+    };
+  }, [data, x]);
 
   const options = {
     scales: {
@@ -53,28 +40,74 @@ function ChartComponent({ data, x }) {
         title: {
           display: true,
           text: "Jours",
+          color: "#666",
+          font: {
+            family: "Arial",
+            size: 16,
+            weight: "bold",
+          },
+        },
+        grid: {
+          display: false,
         },
       },
       y: {
         title: {
           display: true,
           text: "Valeur des patrimoines",
+          color: "#666",
+          font: {
+            family: "Arial",
+            size: 16,
+            weight: "bold",
+          },
+        },
+        grid: {
+          color: "rgba(200, 200, 200, 0.2)",
         },
       },
     },
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        labels: {
+          color: "#666",
+          font: {
+            family: "Arial",
+            size: 14,
+            weight: "bold",
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: "rgba(54, 162, 235, 0.8)",
+        titleFont: { size: 16, weight: "bold" },
+        bodyFont: { size: 14 },
+        borderColor: "#fff",
+        borderWidth: 1,
+        cornerRadius: 4,
+      },
+    },
   };
+
   return (
-    <div style={{height: "40vh" }}>
-      <Line data={data} options={options} />
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: "50vh",
+        padding: "20px",
+        borderRadius: "10px",
+      }}
+    >
+      <Line data={chartData} options={options} />
     </div>
   );
 }
 
-
-
-const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-function DateRangeSelector({
+function Dates({
   dateDebut,
   setDateDebut,
   dateFin,
@@ -83,57 +116,87 @@ function DateRangeSelector({
   setJour,
   handleValidateRange,
 }) {
+  const joursArray = Array.from({ length: 31 }, (_, i) => i + 1);
+
   return (
-    <div className="range d-flex flex-row justify-content-around ">
-      <div>
-        <p>Date de début :</p>
-        <DatePicker selected={dateDebut} onChange={setDateDebut} />
+    <div className="container my-4">
+      <div className="row g-4">
+        <div className="col-md-4">
+          <div className="card p-3 shadow-sm" style={{ border: '2px solid #d8a62f' }}>
+            <p className="mb-2 fw-bold">Date de début :</p>
+            <DatePicker
+              selected={dateDebut}
+              onChange={setDateDebut}
+              className="form-control"
+              style={{ borderRadius: '4px' }}
+            />
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="card p-3 shadow-sm" style={{ border: '2px solid #d8a62f' }}>
+            <p className="mb-2 fw-bold">Date fin :</p>
+            <DatePicker
+              selected={dateFin}
+              onChange={setDateFin}
+              className="form-control"
+              style={{ borderRadius: '4px' }}
+            />
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="card p-3 shadow-sm" style={{ border: '2px solid #d8a62f' }}>
+            <p className="mb-2 fw-bold">Jour :</p>
+            <select
+              value={jour}
+              onChange={(e) => setJour(parseInt(e.target.value))}
+              className="form-select"
+              style={{ borderRadius: '4px' }}
+            >
+              {joursArray.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="col-12 text-center">
+          <button
+            className="btn text-white mt-4"
+            style={{ background: '#d8a62f' }}
+            onClick={handleValidateRange}
+          >
+            Confirmer
+          </button>
+        </div>
       </div>
-      <div>
-        <p>Date fin :</p>
-        <DatePicker selected={dateFin} onChange={setDateFin} />
-      </div>
-      <div>
-        <p>Jour :</p>
-        <select value={jour} onChange={(e) => setJour(parseInt(e.target.value))}>
-          {array.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
+    </div>
+  );
+}
+
+function ValeurUneDate({ dateSelected, setDateSelected, handleGetValeur, valuePatrimoine }) {
+  return (
+    <div className="range d-flex flex-column w-75 pe-3 justify-content-between align-items-center rounded p-3 bg-light box shadow" style={{border: '2px solid #d8a62f'}}>
+      <div className="d-flex flex-row align-items-center">
+      <DatePicker
+          selected={dateSelected}
+          onChange={setDateSelected}
+          className="form-control custom-date-picker"
+      />
         <button
-          className="btn btn-secondary mt-4"
-          onClick={handleValidateRange}
+          className="btn" style={{background: '#d8a62f'}}
+          onClick={() => handleGetValeur(dateSelected)}
         >
-          Valider
+          Confirmer
         </button>
       </div>
-    </div>
-  );
-}
-
-
-
-function ValueGetter({ dateSelected, setDateSelected, handleGetValeur, valuePatrimoine }) {
-  return (
-    <div className="range d-flex flex-row w-75 pe-3 justify-content-between">
-      <div className="d-flex flex-row">
-      <DatePicker selected={dateSelected} onChange={setDateSelected} />
-      <button className="btn btn-secondary ms-2" onClick={() => handleGetValeur(dateSelected)}>
-        Valider
-      </button>
-      </div>
-      <div className="d-flex flex-row">
-        <p>La valeur du patrimoine est de :</p>
-        <p className="ms-2"> {valuePatrimoine} Ar</p>
+      <div className="d-flex flex-row align-items-center">
+        <p className="mb-0"> A cette date, la patrimoine est de:</p>
+        <p className="ms-2 mb-0 fw-bold" style={{fontSize: '1.2rem'}}>{valuePatrimoine} Ar</p>
       </div>
     </div>
   );
-}
-
+};
 
 function PatrimoinePage() {
   const [dateDebut, setDateDebut] = useState(null);
@@ -146,7 +209,6 @@ function PatrimoinePage() {
   
 
   const handleValidateRange = async () => {
-    // Appel à l'API pour obtenir la valeur du patrimoine sur la plage de dates
     const response = await fetch("http://localhost:3000/patrimoine/range", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -164,11 +226,9 @@ function PatrimoinePage() {
 
   return (
     <div className="container">
-      <h2>Page Patrimoine</h2>
       
       <div className="mb-4 ml-3">
-        <h4>Chart</h4>
-        <DateRangeSelector 
+        <Dates
           dateDebut={dateDebut} 
           setDateDebut={setDateDebut} 
           dateFin={dateFin} 
@@ -177,12 +237,11 @@ function PatrimoinePage() {
           setJour={setJour} 
           handleValidateRange={handleValidateRange} 
         />
-        {chartData && <ChartComponent data={chartData} x={parseInt(jour)}/>}
+        {chartData && <Chart data={chartData} x={parseInt(jour)}/>}
       </div>
 
       <div>
-        <h4>Obtenir la valeur du Patrimoine</h4>
-        <ValueGetter 
+        <ValeurUneDate 
           dateSelected = {dateSelected}
           setDateSelected = {setDateSelected}
           handleGetValeur={handleGetValeur} 

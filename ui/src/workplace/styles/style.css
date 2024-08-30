@@ -11,5 +11,30 @@
   }
 
 
+.custom-date-picker {
+  width: 150px;
+  height: auto; 
+}
+
+.react-datepicker__day {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  text-align: center;
+}
+
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
   
   
