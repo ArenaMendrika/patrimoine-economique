@@ -1,40 +1,66 @@
 import React from "react";
 
-function CompleterUpdatePossession({ libelle, dateFin, newLibelle, onDateFinChange, onNewLibelleChange, onSubmit }) {
+function CompleterPossessionPage({ libelle, valeur, dateDebut, tauxAmortissement, onLibelleChange, onValeurChange, onDateDebutChange, onTauxChange, onSubmit }) {
   return (
     <div className="container">
       <div className="d-flex justify-content-center">
-        <form onSubmit={onSubmit} className="p-4 shadow rounded" style={{ maxWidth: '400px', width: '100%', marginTop: '10%' }}>
-          <h4 className="text-center mb-4">Mettre à jour le libellé</h4>
-          
+        <form onSubmit={onSubmit} className="p-4 shadow rounded" style={{ maxWidth: '500px', width: '100%', marginTop: '2%' }}>
+          <h3 className="text-center mb-4">Allez-y</h3>
+
           <div className="form-group mb-3">
-            <label htmlFor="newLibelle" className="form-label">Nouveau nom de libellé</label>
+            <label htmlFor="libelle" className="form-label">Libellé</label>
             <input 
               type="text" 
-              id="newLibelle" 
-              name="newLibelle"
-              value={newLibelle} 
-              onChange={onNewLibelleChange} 
-              className="form-control form-control-lg" 
-              placeholder="Entrez le nouveau libellé"
+              id="libelle" 
+              value={libelle}
+              name="libelle"
+              onChange={onLibelleChange} 
+              className="form-control form-control-lg"
+              placeholder="Entrez le libellé"
             />
           </div>
 
-          <div className="form-group mb-4">
-            <label htmlFor="dateFin" className="form-label">Date Fin</label>
+          <div className="form-group mb-3">
+            <label htmlFor="valeur" className="form-label">Valeur</label>
+            <input 
+              type="number" 
+              id="valeur" 
+              name="valeur"
+              value={valeur} 
+              onChange={onValeurChange} 
+              className="form-control form-control-lg"
+              placeholder="Entrez la valeur"
+            />
+          </div>
+
+          <div className="form-group mb-3">
+            <label htmlFor="dateDebut" className="form-label">Date Début</label>
             <input 
               type="date" 
-              id="dateFin" 
-              name="dateFin"
-              value={dateFin} 
-              onChange={onDateFinChange} 
+              id="dateDebut"
+              name="dateDebut"
+              value={dateDebut} 
+              onChange={onDateDebutChange} 
               className="form-control form-control-lg"
             />
           </div>
 
+          <div className="form-group mb-4">
+            <label htmlFor="tauxAmortissement" className="form-label">Taux</label>
+            <input 
+              type="number" 
+              id="tauxAmortissement" 
+              value={tauxAmortissement} 
+              name="tauxAmortissement"
+              onChange={onTauxChange} 
+              className="form-control form-control-lg"
+              placeholder="Entrez le taux d'amortissement"
+            />
+          </div>
+
           <div className="text-center">
-            <button type="submit" className="btn btn-primary btn-lg">
-              Mettre à jour
+            <button type="submit" className="btn" style={{background: '#d8a62f'}}>
+              Créer
             </button>
           </div>
         </form>
@@ -43,4 +69,4 @@ function CompleterUpdatePossession({ libelle, dateFin, newLibelle, onDateFinChan
   );
 }
 
-export default CompleterUpdatePossession;
+export default CompleterPossessionPage;

@@ -33,7 +33,7 @@ const CompleterUpdatePossession = ({ libelle, dateFin, newLibelle, onDateFinChan
           </div>
 
           <div className="text-center">
-            <button type="submit" className="btn btn-primary btn-lg">
+            <button type="submit" className="btn" style={{background: '#d8a62f'}}>
               Mettre à jour
             </button>
           </div>
