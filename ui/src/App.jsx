@@ -18,7 +18,7 @@ function App() {
                 Possession
               </Link>
             </div>
-        </div>
+          </div>
       </header>
 
       <Routes>
@@ -26,10 +26,7 @@ function App() {
         <Route path="/patrimoine" element={<PatrimoinePage />} />
         <Route path="/possession" element={<PossessionListPage />} />
         <Route path="/possession/create" element={<CreatePossessionPage />} />
-        <Route
-          path="/possession/:libelle/update"
-          element={<PossessionUpdate />}
-        />
+        <Route path="/possession/:libelle/update" element={<PossessionUpdate />}/>
       </Routes>
     </Router>
   );
