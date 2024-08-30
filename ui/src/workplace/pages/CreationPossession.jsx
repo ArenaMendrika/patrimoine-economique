@@ -1,41 +1,47 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PossessionForm from "../CompleterPossessionPage";
+import CompleterPossessionPage from "../CompleterPossessionPage";
 
-function CreatePossessionPage() {
-  const [libelle, setLibelle] = useState("");
-  const [newPossession, setNewPossession] = useState({})
-  const [valeur, setValeur] = useState("");
-  const [dateDebut, setDateDebut] = useState("");
-  const [tauxAmortissement, setTauxAmortissement] = useState("");
+const CreatePossessionPage = () => {
+  const [formData, setFormData] = useState({
+    libelle: "",
+    valeur: "",
+    dateDebut: "",
+    tauxAmortissement: ""
+  });
+  const [newPossession, setNewPossession] = useState({});
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Envoyer les données au backend
     const response = await fetch("http://localhost:3000/possession", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ libelle, valeur, dateDebut, tauxAmortissement }),
+      body: JSON.stringify(formData),
     });
     const data = await response.json();
-    setNewPossession(data.valeur)
+    setNewPossession(data.valeur);
     navigate("/possession");
   };
 
   return (
-    <PossessionForm
-      libelle={libelle}
-      valeur={valeur}
-      dateDebut={dateDebut}
-      tauxAmortissement={tauxAmortissement}
-      onLibelleChange={(e) => setLibelle(e.target.value)}
-      onValeurChange={(e) => setValeur(e.target.value)}
-      onDateDebutChange={(e) => setDateDebut(e.target.value)}
-      onTauxChange={(e) => setTauxAmortissement(e.target.value)}
+    <CompleterPossessionPage
+      {...formData}
+      onLibelleChange={handleChange}
+      onValeurChange={handleChange}
+      onDateDebutChange={handleChange}
+      onTauxChange={handleChange}
       onSubmit={handleSubmit}
     />
   );
-}
+};
 
 export default CreatePossessionPage;

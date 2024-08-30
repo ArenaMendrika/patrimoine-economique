@@ -8,6 +8,6 @@ router.post("/", createPossession);
 
 router.patch("/:libelle", updatePossession);
 
-router.post("/:libelle/close", closePossession)
+router.post("/:libelle/close", closePossession);
 
 export default router;
