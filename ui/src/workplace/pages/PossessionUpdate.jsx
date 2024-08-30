@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UpdatePossessionForm from "../CompleterUpdatePossession";
+import CompleterUpdatePossession from "../CompleterUpdatePossession";
 
-const UpdatePossessionPage = () => {
+const PossessionUpdate = () => {
   const { libelle } = useParams();
-  const [dateFin, setDateFin] = useState("");
+  const [formData, setFormData] = useState({
+    dateFin: "",
+    newLibelle: "",
+  });
   const navigate = useNavigate();
-  const [newLibelle, setNewLibelle] = useState("");
   const [newPossession, setNewPossession] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`http://localhost:3000/possession/${libelle}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ dateFin, newLibelle }),
+      body: JSON.stringify(formData),
     });
     const data = await response.json();
     setNewPossession(data.valeur);
@@ -22,15 +32,15 @@ const UpdatePossessionPage = () => {
   };
 
   return (
-    <UpdatePossessionForm
+    <CompleterUpdatePossession
       libelle={libelle}
-      dateFin={dateFin}
-      setDateFin={setDateFin}
-      newLibelle={newLibelle}
-      setNewLibelle={setNewLibelle}
-      handleSubmit={handleSubmit}
+      dateFin={formData.dateFin}
+      newLibelle={formData.newLibelle}
+      onDateFinChange={handleChange}
+      onNewLibelleChange={handleChange}
+      onSubmit={handleSubmit}
     />
   );
 };
 
-export default UpdatePossessionPage;
+export default PossessionUpdate;

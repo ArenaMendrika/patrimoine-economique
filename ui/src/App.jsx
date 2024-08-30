@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import PatrimoinePage from "./workplace/pages/PatrimoinePage";
 import PossessionListPage from "./workplace/pages/PossessionListPage";
 import CreatePossessionPage from "./workplace/pages/CreationPossession";
-import UpdatePossessionPage from "./workplace/pages/PossessionUpdate";
+import PossessionUpdate from "./workplace/pages/PossessionUpdate";
 import "./App.css";
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
         <Route path="/possession/create" element={<CreatePossessionPage />} />
         <Route
           path="/possession/:libelle/update"
-          element={<UpdatePossessionPage />}
+          element={<PossessionUpdate />}
         />
       </Routes>
     </Router>
