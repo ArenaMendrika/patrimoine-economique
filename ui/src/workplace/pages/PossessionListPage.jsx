@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PossessionList from "../ListeDesPossessions";
+import ListeDesPossessions from "../ListeDesPossessions";
 
 function PossessionListPage() {
   const [possessions, setPossessions] = useState([]);
@@ -23,7 +23,7 @@ function PossessionListPage() {
     fetchData();
   }, []);
 
-  return <PossessionList possessions={possessions} refetchPossessions={fetchData}/>;
+  return <ListeDesPossessions possessions={possessions} refetchPossessions={fetchData}/>;
 }
 
 export default PossessionListPage;

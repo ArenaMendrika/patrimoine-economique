@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './styles/style.css'
 
 
-function PossessionList({ possessions, refetchPossessions }) {
+function ListeDesPossessions({ possessions, refetchPossessions }) {
   const closePossession = async (libelle) => {
     try {
       const response = await fetch(`http://localhost:3000/possession/${libelle}/close`, {
@@ -121,4 +121,4 @@ function PossessionList({ possessions, refetchPossessions }) {
   );
 }
 
-export default PossessionList;
+export default ListeDesPossessions;
