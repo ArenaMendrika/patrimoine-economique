@@ -97,7 +97,7 @@ function Chart({ data, x }) {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: "50vh",
+        height: "70vh",
         padding: "20px",
         borderRadius: "10px",
       }}
@@ -225,7 +225,7 @@ function PatrimoinePage() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{marginBottom: '20%'}}>
       
       <div className="mb-4 ml-3">
         <Dates
