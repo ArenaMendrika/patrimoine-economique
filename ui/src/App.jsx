@@ -3,7 +3,7 @@ import PatrimoinePage from "./workplace/pages/PatrimoinePage";
 import PossessionListPage from "./workplace/pages/PossessionListPage";
 import CreatePossessionPage from "./workplace/pages/CreationPossession";
 import PossessionUpdate from "./workplace/pages/PossessionUpdate";
-import Header from "./workplace/pages/Header";
+import Header from "./workplace/components/Header";
 import "./App.css";
 
 function App() {
