@@ -5,8 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: '0.0.0.0',  // Permet d'exposer le serveur sur le réseau
+    port: process.env.PORT || 3000,  // Utilise le port fourni par Render, sinon 3000 par défaut
     proxy: {
-      '/api': 'http://localhost:3000', // Proxy API requests to the backend server
+      '/api': 'http://localhost:3000',  // Proxy API requests to the backend server
     },
   },
 })
+
