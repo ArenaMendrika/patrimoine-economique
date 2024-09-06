@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../styles/style.css'
 
+function threeNumbers(n) {
+  return new Intl.NumberFormat('fr-FR').format(n);
+}
 
 function ListeDesPossessions({ possessions, refetchPossessions }) {
   const closePossession = async (libelle) => {
@@ -39,8 +42,8 @@ function ListeDesPossessions({ possessions, refetchPossessions }) {
                 <td className="text-center">{possession.libelle}</td>
                 <td className="text-center">
                   {possession.valeur
-                    ? possession.valeur
-                    : possession.valeurConstante}
+                    ? threeNumbers(possession.valeur)
+                    : threeNumbers(possession.valeurConstante)}
                 </td>
                 <td className="text-center">
                   {possession.dateDebut
@@ -57,7 +60,7 @@ function ListeDesPossessions({ possessions, refetchPossessions }) {
                     ? possession.tauxAmortissement + " %"
                     : "_"}
                 </td>
-                <td className="text-center">{possession.valeurActuelle}</td>
+                <td className="text-center">{threeNumbers(possession.valeurActuelle)}</td>
                 <td className="text-center">
               <Link
                 to={`/possession/${possession.libelle}/update`}

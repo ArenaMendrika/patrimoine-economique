@@ -8,6 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/style.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+function threeNumbers(n) {
+  return new Intl.NumberFormat('fr-FR').format(n);
+}
 
 function Chart({ data, x }) {
   const chartData = useMemo(() => {
@@ -23,11 +26,11 @@ function Chart({ data, x }) {
           borderColor: "#e6b94b",
           borderWidth: 2,
           pointBackgroundColor: "#d8a62f",
-          pointBorderColor: "white",
-          pointHoverBackgroundColor: "white",
+          pointBorderColor: "#d8a62f",
+          pointHoverBackgroundColor: "#d8a62f",
           pointHoverBorderColor: "#d8a62f",
-          pointRadius: 5,
-          pointHoverRadius: 7,
+          pointRadius: 2,
+          pointHoverRadius: 4,
         },
       ],
     };
@@ -192,7 +195,7 @@ function ValeurUneDate({ dateSelected, setDateSelected, handleGetValeur, valuePa
       </div>
       <div className="d-flex flex-row align-items-center">
         <p className="mb-0"> A cette date, la patrimoine est de:</p>
-        <p className="ms-2 mb-0 fw-bold" style={{fontSize: '1.2rem'}}>{valuePatrimoine} Ar</p>
+        <p className="ms-2 mb-0 fw-bold" style={{fontSize: '1.2rem'}}>{threeNumbers(valuePatrimoine)} Ar</p>
       </div>
     </div>
   );
