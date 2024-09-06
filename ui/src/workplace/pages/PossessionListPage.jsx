@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ListeDesPossessions from "../components/ListeDesPossessions";
 
+import { backendApiUrl } from '../components/config';
+
 function PossessionListPage() {
   const [possessions, setPossessions] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/possession", {
+      const response = await fetch(`${backendApiUrl}/possession`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });

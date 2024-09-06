@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CompleterPossessionPage from "../components/CompleterPossessionPage";
 
+import { backendApiUrl } from '../components/config';
+
 const CreatePossessionPage = () => {
   const [formData, setFormData] = useState({
     libelle: "",
@@ -22,7 +24,7 @@ const CreatePossessionPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:3000/possession", {
+    const response = await fetch(`${backendApiUrl}/possession`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

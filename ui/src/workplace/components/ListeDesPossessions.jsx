@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../styles/style.css'
 
+import { backendApiUrl } from './config';
+
 function threeNumbers(n) {
   return new Intl.NumberFormat('fr-FR').format(n);
 }
@@ -9,7 +11,7 @@ function threeNumbers(n) {
 function ListeDesPossessions({ possessions, refetchPossessions }) {
   const closePossession = async (libelle) => {
     try {
-      const response = await fetch(`http://localhost:3000/possession/${libelle}/close`, {
+      const response = await fetch(`${backendApiUrl}/possession/${libelle}/close`, {
         method: "Post",
         headers: { "Content-Type": "application/json" },
       });

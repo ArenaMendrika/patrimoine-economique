@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CompleterUpdatePossession from "../components/CompleterUpdatePossession"
 
+import { backendApiUrl } from '../components/config';
+
 const PossessionUpdate = () => {
   const { libelle } = useParams();
   const [formData, setFormData] = useState({
@@ -21,7 +23,7 @@ const PossessionUpdate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:3000/possession/${libelle}`, {
+    const response = await fetch(`${backendApiUrl}/possession/${libelle}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

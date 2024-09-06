@@ -8,6 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/style.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+import { backendApiUrl } from '../components/config';
+
 function threeNumbers(n) {
   return new Intl.NumberFormat('fr-FR').format(n);
 }
@@ -212,7 +215,7 @@ function PatrimoinePage() {
   
 
   const handleValidateRange = async () => {
-    const response = await fetch("http://localhost:3000/patrimoine/range", {
+    const response = await fetch(`${backendApiUrl}/patrimoine/range`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "month", dateDebut, dateFin, jour}),
@@ -222,7 +225,7 @@ function PatrimoinePage() {
   };
 
   const handleGetValeur = async (date) => {
-    const response = await fetch(`http://localhost:3000/patrimoine/${date.toISOString()}`);
+    const response = await fetch(`${backendApiUrl}/patrimoine/${date.toISOString()}`);
     const data = await response.json();
     setValuePatrimoine(data.valeur);
   };
