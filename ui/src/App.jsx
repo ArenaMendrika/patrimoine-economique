@@ -11,7 +11,6 @@ function App() {
     <Router>
       <Header />
       <Routes>
-
         <Route path="/" element={<PatrimoinePage />} />
         <Route path="/patrimoine" element={<PatrimoinePage />} />
         <Route path="/possession" element={<PossessionListPage />} />
