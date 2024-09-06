@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../styles/style.css'
 
-import { backendApiUrl } from './config';
+import { backendApiUrl } from '../../config';
 
 function threeNumbers(n) {
   return new Intl.NumberFormat('fr-FR').format(n);

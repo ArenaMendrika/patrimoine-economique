@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CompleterUpdatePossession from "../components/CompleterUpdatePossession"
 
-import { backendApiUrl } from '../components/config';
+import { backendApiUrl } from '../../config';
 
 const PossessionUpdate = () => {
   const { libelle } = useParams();

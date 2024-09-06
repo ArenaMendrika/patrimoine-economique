@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ListeDesPossessions from "../components/ListeDesPossessions";
 
-import { backendApiUrl } from '../components/config';
+import { backendApiUrl } from '../../config';
 
 function PossessionListPage() {
   const [possessions, setPossessions] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CompleterPossessionPage from "../components/CompleterPossessionPage";
 
-import { backendApiUrl } from '../components/config';
+import { backendApiUrl } from '../../config';
 
 const CreatePossessionPage = () => {
   const [formData, setFormData] = useState({

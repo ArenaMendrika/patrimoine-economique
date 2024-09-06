@@ -9,7 +9,7 @@ import '../styles/style.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-import { backendApiUrl } from '../components/config';
+import { backendApiUrl } from '../../config';
 
 function threeNumbers(n) {
   return new Intl.NumberFormat('fr-FR').format(n);
