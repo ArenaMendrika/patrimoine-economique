@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import CompleterUpdatePossession from "../CompleterUpdatePossession";
+import CompleterUpdatePossession from "../components/CompleterUpdatePossession"
 
 const PossessionUpdate = () => {
   const { libelle } = useParams();

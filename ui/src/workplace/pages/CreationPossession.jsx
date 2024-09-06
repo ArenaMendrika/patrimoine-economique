@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CompleterPossessionPage from "../CompleterPossessionPage";
+import CompleterPossessionPage from "../components/CompleterPossessionPage";
 
 const CreatePossessionPage = () => {
   const [formData, setFormData] = useState({
