@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',  // Permet d'exposer le serveur sur le réseau
-    port: process.env.PORT || 3000,  // Utilise le port fourni par Render, sinon 3000 par défaut
+    port: process.env.PORT || 5173,  // Utilise le port 5173 en local, ou celui fourni en production
     proxy: {
-      '/api': 'http://localhost:3000',  // Proxy API requests to the backend server
+      '/api': 'http://localhost:3000',  // Proxy les requêtes API vers le backend local sur le port 3000
     },
   },
 })
